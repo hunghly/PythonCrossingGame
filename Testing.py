@@ -77,12 +77,12 @@ print(starting_position.keys())
 print('------------Control Flow-------------')
 # if condition:
 #     code to execute if condition is true
-is_game_over = False
-p_0_x_pos = 0
-e_0_x_pos = 3
-e_1_x_pos = 5
-
-p_0_x_pos += 2
+# is_game_over = False
+# p_0_x_pos = 0
+# e_0_x_pos = 3
+# e_1_x_pos = 5
+#
+# p_0_x_pos += 2
 # if p_0_x_pos == e_0_x_pos:
 #     print('you hit the enemy')
 #     is_game_over = True
@@ -94,9 +94,44 @@ p_0_x_pos += 2
 #     e_1_x_pos += 1
 # print(is_game_over)
 
-if p_0_x_pos == e_0_x_pos or p_0_x_pos == e_1_x_pos:
-    print('you hit the enemy')
-    is_game_over = True
-else:
-    e_0_x_pos += 1
-    e_1_x_pos += 1
+# if p_0_x_pos == e_0_x_pos or p_0_x_pos == e_1_x_pos:
+#     print('you hit the enemy')
+#     is_game_over = True
+# else:
+#     e_0_x_pos += 1
+#     e_1_x_pos += 1
+
+print('------------LOOPS------------')
+# while loops
+# for in loops
+index = 0
+# while not is_game_over:
+#     print(index)
+#     index += 1
+#     if index == 10:
+#         is_game_over = True
+#
+is_game_over = False
+p_x_pos = 2
+e_x_pos = 3
+end_x_pos = 10
+
+while not is_game_over:
+    print(p_x_pos)
+    print(e_x_pos)
+    if p_x_pos == e_x_pos:
+        print('you lose!')
+        is_game_over = True
+    elif p_x_pos >= end_x_pos:
+        print('you win!')
+        is_game_over = True
+    else:
+        p_x_pos += 3
+        e_x_pos += 1
+
+x_pos = 5
+movements = [1, -2, 6, -3, -2, 4]
+# similar to for each loop
+for movement in movements:
+    x_pos+= movement
+    print(x_pos)
