@@ -73,3 +73,30 @@ starting_position = {
 }
 print(starting_position['p_0'])
 print(starting_position.keys())
+
+print('------------Control Flow-------------')
+# if condition:
+#     code to execute if condition is true
+is_game_over = False
+p_0_x_pos = 0
+e_0_x_pos = 3
+e_1_x_pos = 5
+
+p_0_x_pos += 2
+# if p_0_x_pos == e_0_x_pos:
+#     print('you hit the enemy')
+#     is_game_over = True
+# elif p_0_x_pos == e_1_x_pos:
+#     print('you hit enemy2')
+#     is_game_over = True
+# else:
+#     e_0_x_pos += 1
+#     e_1_x_pos += 1
+# print(is_game_over)
+
+if p_0_x_pos == e_0_x_pos or p_0_x_pos == e_1_x_pos:
+    print('you hit the enemy')
+    is_game_over = True
+else:
+    e_0_x_pos += 1
+    e_1_x_pos += 1
