@@ -135,3 +135,8 @@ movements = [1, -2, 6, -3, -2, 4]
 for movement in movements:
     x_pos+= movement
     print(x_pos)
+
+books = ['stephen king''s it', 'seven effective habits']
+
+for book in books:
+    print(book)
