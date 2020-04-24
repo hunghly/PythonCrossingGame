@@ -140,3 +140,10 @@ books = ['stephen king''s it', 'seven effective habits']
 
 for book in books:
     print(book)
+
+index = 0
+while index < 10:
+    print(index)
+    index += 1
+
+
