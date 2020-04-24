@@ -146,35 +146,59 @@
 #     print(index)
 #     index += 1
 
-print('---------------Functions--------------')
-x_pos = 0
-e_x_pos = 4
-print(x_pos)
+# print('---------------Functions--------------')
+# x_pos = 0
+# e_x_pos = 4
+# print(x_pos)
+#
+#
+# def check_for_collision():
+#     global x_pos
+#     global e_x_pos
+#     if x_pos == e_x_pos:
+#         return True
+#     else:
+#         return False
+#
+#
+# def move():
+#     global x_pos
+#     x_pos += 1
+#
+#
+# def move_by(amount):
+#     global x_pos  # retrieves the global variable
+#     x_pos += amount
+#
+#
+# move_by(4)
+# did_collide = check_for_collision()
+#
+# print(did_collide)
+
+print('--------Objects--------')
 
 
-def check_for_collision():
-    global x_pos
-    global e_x_pos
-    if x_pos == e_x_pos:
-        return True
-    else:
-        return False
+class GameCharacter:
+    speed = 5
+
+    def __init__(self, name, width, height, x_pos, y_pos):
+        self.name = name
+        self.width = width
+        self.height = height
+        self.x_pos = x_pos
+        self.y_pos = y_pos
+
+    def move(self, by_x_amount, by_y_amount):
+        self.x_pos += by_x_amount
+        self.y_pos += by_y_amount
 
 
-def move():
-    global x_pos
-    x_pos += 1
+character_0 = GameCharacter('hung', 50, 100, 100, 100)
+print(character_0.name)
+character_0.name = 'joe'
+print(character_0.name)
 
-
-def move_by(amount):
-    global x_pos    # retrieves the global variable
-    x_pos += amount
-
-
-move_by(4)
-did_collide = check_for_collision()
-
-
-
-print(did_collide)
-
+character_0.move(50, 100)
+print(character_0.x_pos)
+print(character_0.y_pos)
