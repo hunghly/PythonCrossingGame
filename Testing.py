@@ -231,28 +231,3 @@ player_character.move(100)
 print(player_character.x_pos)
 print(player_character.y_pos)
 
-config = {
-    "apiKey": "AIzaSyBA8vi142hqNzFqmp7nXP07oqvW9TFwP50",
-    "authDomain": "first-project-86197.firebaseapp.com",
-    "databaseURL": "https://first-project-86197.firebaseio.com/",
-    "storageBucket": "projectId.appspot.com",
-    "serviceAccount": "/Users/hungly/Downloads/first-project-86197-firebase-adminsdk-ionbv-a1b8dacb19.json"
-}
-
-firebase = pyrebase.initialize_app(config)
-db = firebase.database()
-db.child("users").child("Hung")
-data = {"name": "Mortimer 'Morty' Smith"}
-db.child("users").push(data)
-
-users_ref = db.child('users')
-users_ref.set({
-    'alanisawesome': {
-        'date_of_birth': 'June 23, 1912',
-        'full_name': 'Alan Turing'
-    },
-    'gracehop': {
-        'date_of_birth': 'December 9, 1906',
-        'full_name': 'Grace Hopper'
-    }
-})
