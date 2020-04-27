@@ -54,9 +54,19 @@ class GameObject:
         self.image = pygame.transform.scale(object_image, (width, height))
         self.x_pos = x
         self.y_pos = y
+        self.width = width
+        self.height = height
 
     def draw(self, background):
         background.blit(self.image, (self.x_pos, self.y_pos))
+
+
+class PlayerCharacter(GameObject):
+
+    SPEED = 10
+
+    def __init__(self, image_path, x, y, width, height):
+        super().__init__(image_path, x, y, width, height)
 
 
 pygame.init()
