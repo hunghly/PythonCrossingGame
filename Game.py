@@ -21,14 +21,17 @@ class Game:
         self.width = width
         self.height = height
         # Create the window of specified size in width to display the game
-        game_screen = pygame.display.set_mode((width, height))
+        self.game_screen = pygame.display.set_mode((width, height))
         # Set the game window color to white
-        game_screen.fill(WHITE_COLOR)
+        self.game_screen.fill(WHITE_COLOR)
         # change title
         pygame.display.set_caption(title)
 
     def run_game_loop(self):
         is_game_over = False
+        direction = 0
+        player_character = PlayerCharacter('./images/player.png', 375, 700, 50, 50)
+
         # Runs until is_game_over = True
         while not is_game_over:
 
@@ -38,8 +41,20 @@ class Game:
                 # if we have a quit type event then exit out of loop
                 if event.type == pygame.QUIT:
                     is_game_over = True
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_UP:
+                        direction = 1
+                    elif event.key == pygame.K_DOWN:
+                        direction = -1
+                elif event.type == pygame.KEYUP:
+                    if event.key == pygame.K_UP or event.key == pygame.K_DOWN:
+                        direction = 0
+
                 print(event)
 
+            self.game_screen.fill(WHITE_COLOR)
+            player_character.move(direction)
+            player_character.draw(self.game_screen)
             # update all game graphics
             pygame.display.update()
             # tick the clock to update everything within the game
@@ -62,11 +77,16 @@ class GameObject:
 
 
 class PlayerCharacter(GameObject):
-
     SPEED = 10
 
     def __init__(self, image_path, x, y, width, height):
         super().__init__(image_path, x, y, width, height)
+
+    def move(self, direction):
+        if direction > 0:
+            self.y_pos -= self.SPEED
+        elif direction < 0:
+            self.y_pos += self.SPEED
 
 
 pygame.init()
