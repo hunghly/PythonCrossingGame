@@ -33,12 +33,12 @@ class Game:
         is_game_over = False
         direction = 0
         player_character = PlayerCharacter('./images/player.png', 375, 700, 50, 50)
+        treasure = GameObject('./images/treasure.png', 375, 50, 50, 50)
         enemy_0 = NonPlayerCharacter('./images/enemy.png', 20, 400, 50, 50)
-        # enemy_1 = NonPlayerCharacter('./images/enemy.png', 40, 600, 50, 50)
+        # enemy_1 = NonPlayerCharacter('./images/enemy.png', 200, 600, 50, 50)
 
         # Runs until is_game_over = True
         while not is_game_over:
-
             # a loop to get all of the events occuring at any given time
             # events are most often mouse movement, mouse and button clicks, or exit events
             for event in pygame.event.get():
@@ -57,20 +57,26 @@ class Game:
                 # print(event)
 
             self.game_screen.fill(WHITE_COLOR)
+            treasure.draw(self.game_screen)
             # Move player
             player_character.move(direction, self.height)
             player_character.draw(self.game_screen)
             # Move enemy 0
             enemy_0.move(self.width)
             enemy_0.draw(self.game_screen)
+
+            if player_character.detect_collision(enemy_0):
+                is_game_over = True
+            elif player_character.detect_collision(treasure):
+                is_game_over = True
             # Move enemy 1
             # enemy_1.move(self.width)
             # enemy_1.draw(self.game_screen)
 
-        # update all game graphics
-        pygame.display.update()
-        # tick the clock to update everything within the game
-        clock.tick(self.TICK_RATE)
+            # update all game graphics
+            pygame.display.update()
+            # tick the clock to update everything within the game
+            clock.tick(self.TICK_RATE)
 
 
 class GameObject:
@@ -105,6 +111,17 @@ class PlayerCharacter(GameObject):
         if self.y_pos <= 0:
             self.y_pos = 0
 
+    def detect_collision(self, other_body):
+        if self.y_pos > other_body.y_pos + other_body.height:
+            return False
+        elif self.y_pos + self.height < other_body.y_pos:
+            return False
+        if self.x_pos > other_body.x_pos + other_body.width:
+            return False
+        elif self.x_pos + self.width < other_body.x_pos:
+            return False
+        return True
+
 
 class NonPlayerCharacter(GameObject):
     SPEED = 4
@@ -113,7 +130,7 @@ class NonPlayerCharacter(GameObject):
         super().__init__(image_path, x, y, width, height)
 
     def move(self, max_width):
-        if self.x_pos <= 20:
+        if self.x_pos <= 0:
             self.SPEED = abs(self.SPEED)
         elif self.x_pos >= max_width - 50:
             self.SPEED = -abs(self.SPEED)
