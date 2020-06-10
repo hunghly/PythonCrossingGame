@@ -1,4 +1,6 @@
 # Gain access to the pygame library
+# Implement game classes
+# Implement enemy character class and bounds checking
 import pygame
 
 # screen data
@@ -31,6 +33,8 @@ class Game:
         is_game_over = False
         direction = 0
         player_character = PlayerCharacter('./images/player.png', 375, 700, 50, 50)
+        enemy_0 = NonPlayerCharacter('./images/enemy.png', 20, 400, 50, 50)
+        # enemy_1 = NonPlayerCharacter('./images/enemy.png', 40, 600, 50, 50)
 
         # Runs until is_game_over = True
         while not is_game_over:
@@ -50,15 +54,23 @@ class Game:
                     if event.key == pygame.K_UP or event.key == pygame.K_DOWN:
                         direction = 0
 
-                print(event)
+                # print(event)
 
             self.game_screen.fill(WHITE_COLOR)
-            player_character.move(direction)
+            # Move player
+            player_character.move(direction, self.height)
             player_character.draw(self.game_screen)
-            # update all game graphics
-            pygame.display.update()
-            # tick the clock to update everything within the game
-            clock.tick(self.TICK_RATE)
+            # Move enemy 0
+            enemy_0.move(self.width)
+            enemy_0.draw(self.game_screen)
+            # Move enemy 1
+            # enemy_1.move(self.width)
+            # enemy_1.draw(self.game_screen)
+
+        # update all game graphics
+        pygame.display.update()
+        # tick the clock to update everything within the game
+        clock.tick(self.TICK_RATE)
 
 
 class GameObject:
@@ -82,11 +94,30 @@ class PlayerCharacter(GameObject):
     def __init__(self, image_path, x, y, width, height):
         super().__init__(image_path, x, y, width, height)
 
-    def move(self, direction):
+    def move(self, direction, max_height):
         if direction > 0:
             self.y_pos -= self.SPEED
         elif direction < 0:
             self.y_pos += self.SPEED
+        #     bottom of screen
+        if self.y_pos >= max_height - self.height:
+            self.y_pos = max_height - self.height
+        if self.y_pos <= 0:
+            self.y_pos = 0
+
+
+class NonPlayerCharacter(GameObject):
+    SPEED = 4
+
+    def __init__(self, image_path, x, y, width, height):
+        super().__init__(image_path, x, y, width, height)
+
+    def move(self, max_width):
+        if self.x_pos <= 20:
+            self.SPEED = abs(self.SPEED)
+        elif self.x_pos >= max_width - 50:
+            self.SPEED = -abs(self.SPEED)
+        self.x_pos += self.SPEED
 
 
 pygame.init()
